@@ -3,31 +3,16 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: alpine
+      - image: cimg/base:2020.01
     steps:
       - checkout #git clone <myRepo>
       - run: 
-          name: "build the service"
+          name: "echo an env var that is part of our project"
           command: |
-            echo "Hello this is the build step"
-            ls
-            pwd
-            cat README.md
-  test:
-    docker:
-      - image: alpine
-    steps:
-      - run: 
-          name: "Test step"
-          command: |
-            echo "Hello this is test step"
+            echo $MY_ENV_VAR
 
 workflows:
   # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  test-env-vars:
     jobs:
       - build
-      - test:
-          requires:
-            - build
