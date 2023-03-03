@@ -1,0 +1,24 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: alpine
+    steps:
+      - checkout #git clone <myRepo>
+      - run: 
+          name: "build the service"
+          command: |
+            echo "Hello this is the build step"
+            ls
+            pwd
+            cat README.md
+workflows:
+  # Name the workflow "welcome"
+  welcome:
+    # Run the welcome/run job in its own container
+    jobs:
+      - build
+      # - print_world:
+      #     requires:
+      #       - print_hello
